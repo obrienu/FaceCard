@@ -2,86 +2,109 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" 
-          content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    
+
     <title>Mini App</title>
-    
+
     <style>
       body {
-      margin: 0;
-      padding: 1em;
-    }
+        margin: 0;
+        padding: 1em;
+      }
 
-    [data-cart-info],
-    [data-credit-card] {
-      transform: scale(0.78);
-      margin-left: -3.4em;
-    }
+      [data-cart-info],
+      [data-credit-card] {
+        transform: scale(0.78);
+        margin-left: -3.4em;
+      }
 
-    [data-cc-info] input:focus,
-    [data-cc-digits] input:focus {
-      outline: none;
-    }
+      [data-cc-info] input:focus,
+      [data-cc-digits] input:focus {
+        outline: none;
+      }
 
-    .mdc-card__primary-action,
-    .mdc-card__primary-action:hover {
-      cursor: auto;
-      padding: 20px;
-      min-height: inherit;
-    }
+      .mdc-card__primary-action,
+      .mdc-card__primary-action:hover {
+        cursor: auto;
+        padding: 20px;
+        min-height: inherit;
+      }
 
-    [data-credit-card] [data-card-type] {
-      transition: width 1.5s;
-      margin-left: calc(100% - 130px);
-    }
+      [data-credit-card] [data-card-type] {
+        transition: width 1.5s;
+        margin-left: calc(100% - 130px);
+      }
 
-    [data-credit-card].is-visa {
-      background: linear-gradient(135deg, #622774 0%, #c53364 100%);
-    }
+      [data-credit-card].is-visa {
+        background: linear-gradient(135deg, #622774 0%, #c53364 100%);
+      }
 
-    [data-credit-card].is-mastercard {
-      background: linear-gradient(135deg, #65799b 0%, #5e2563 100%);
-    }
+      [data-credit-card].is-mastercard {
+        background: linear-gradient(135deg, #65799b 0%, #5e2563 100%);
+      }
 
-    .is-visa [data-card-type],
-    .is-mastercard [data-card-type] {
-      width: auto;
-    }
+      .is-visa [data-card-type],
+      .is-mastercard [data-card-type] {
+        width: auto;
+      }
 
-    input.is-invalid,
-    .is-invalid input {
-      text-decoration: line-through;
-    }
+      input.is-invalid,
+      .is-invalid input {
+        text-decoration: line-through;
+      }
 
-    ::placeholder {
-      color: #fff;
-    }
-      
-    /* Add Your CSS From Here */
+      ::placeholder {
+        color: #fff;
+      }
+
+      /* Add Your CSS From Here */
+      body {
+        background-color: white;
+      }
     </style>
   </head>
+
   <body>
-    
     <!-- your HTML goes here -->
-    
+    <div data-cart-info>
+      <h1 class="mdc-typography--headline4">
+        <span class="material-icons">shopping_cart</span>
+        <span data-bill></span>
+      </h1>
+    </div>
+    <div data-credit-card class="mdc-card mdc-card--outlined">
+      <div class="mdc-card__primary-action">
+        <img data-card-type src="https://placehold.it/120x60.png?text=Card" />
+        <div data-cc-digits>
+          <input type="text" size="4" placeholder="----" />
+          <input type="text" size="4" placeholder="----" />
+          <input type="text" size="4" placeholder="----" />
+          <input type="text" size="4" placeholder="----" />
+        </div>
+        <div data-cc-info>
+          <input type="text" size="20" placeholder="Name Surname" />
+          <input type="text" size="6" placeholder="MM/YY" />
+        </div>
+      </div>
+    </div>
+    <button class="mdc-button" data-pay-btn>Pay Now</button>
     <script>
-      
       const supportedCards = {
-        visa, mastercard
+        visa,
+        mastercard
       };
 
       const countries = [
         {
-          code: "US",
-          currency: "USD",
+          code: 'US',
+          currency: 'USD',
           currencyName: '',
           country: 'United States'
         },
         {
-          code: "NG",
-          currency: "NGN",
+          code: 'NG',
+          currency: 'NGN',
           currencyName: '',
           country: 'Nigeria'
         },
@@ -130,31 +153,33 @@
       ];
 
       const billHype = () => {
-        const billDisplay = document.querySelector('.mdc-typography--headline4');
+        const billDisplay = document.querySelector(
+          '.mdc-typography--headline4'
+        );
         if (!billDisplay) return;
 
         billDisplay.addEventListener('click', () => {
-          const billSpan = document.querySelector("[data-bill]");
-          if (billSpan &&
+          const billSpan = document.querySelector('[data-bill]');
+          if (
+            billSpan &&
             appState.bill &&
             appState.billFormatted &&
-            appState.billFormatted === billSpan.textContent) {
+            appState.billFormatted === billSpan.textContent
+          ) {
             window.speechSynthesis.speak(
               new SpeechSynthesisUtterance(appState.billFormatted)
             );
           }
         });
       };
-      
-	  const fetchBill = () => {
+
+      const fetchBill = () => {
         const apiHost = 'https://randomapi.com/api';
-		const apiKey = '006b08a801d82d0c9824dcfdfdfa3b3c';
-		const apiEndpoint = `${apiHost}/${apiKey}`;
-        
+        const apiKey = '006b08a801d82d0c9824dcfdfdfa3b3c';
+        const apiEndpoint = `${apiHost}/${apiKey}`;
       };
-      
-      const startApp = () => {
-      };
+
+      const startApp = () => {};
 
       startApp();
     </script>
